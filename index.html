@@ -6,6 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مستعرض الملفات الملكي</title>
     <style>
+        .intro-note {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 25px 30px;
+  background: linear-gradient(135deg, #ff5405ec, #ff0000c2);
+  border-left: 6px solid #fbbf24;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.intro-note h2 {
+  margin-bottom: 10px;
+  color: #fbbf24;
+  font-size: 22px;
+}
+
+.intro-note p {
+  line-height: 1.9;
+  color: #e5e7eb;
+  font-size: 16px;
+}
+
+      /* تنسيق الحاوية عندما تكون في وضع ملء الشاشة */
+.master-container:fullscreen {
+    width: 100vw !important;
+    height: 100vh !important;
+    padding: 20px;
+    background-color: var(--bg-color);
+    overflow-y: auto;
+    border: none;
+}
+
+.master-container:fullscreen .preview-section iframe {
+    height: 80vh; /* تكبير الإطار ليشغل معظم الشاشة */
+}
+      
         /* يجعل الحاويات مرنة لتناسب عرض أي شاشة */
 .master-container {
     width: 95% !important; /* يأخذ 95% من عرض الشاشة في الموبايل */
@@ -51,8 +87,7 @@ iframe {
              display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 40px;
-            padding: 40px 0;
+             padding: 40px 0;
             min-height: 100vh;
             font-family: 'Segoe UI', sans-serif;
             transition: 0.5s;
@@ -265,11 +300,11 @@ body {
 <body>
 <header class="main-header">
     <div class="header-logo">
-        👑 المكتبة الملكية
+        (عبقرينو)👑المكتبة-الملكية
     </div>
     
     <div class="header-actions">
-        <a href="https://wa.me/رقم_هاتفك" target="_blank" class="btn-contact header-btn">
+        <a href="https://wa.me/201158606601" target="_blank" class="btn-contact header-btn">
             📞 تواصل معنا
         </a>
         
@@ -278,20 +313,41 @@ body {
         </button>
     </div>
 </header>
+<div class="intro-note">
+  <h2>تنويه تقني مهم</h2>
+  <p>
+    تم تصميم هذه الصفحة وفق معايير تقنية تضمن أفضل أداء وسرعة تحميل ممكنة.
+    تُعرض بعض الكتب الدراسية داخل الصفحة مباشرة نظرًا لحجمها المناسب،
+    بينما تتوفر كتب أخرى بصيغة التحميل فقط بسبب كِبر حجمها،
+    وذلك حفاظًا على استقرار الموقع وسلاسة التصفح.
+  </p>
+</div>
+
     <button onclick="toggleTheme()" class="btn btn-theme-toggle">🌓 تغيير وضع الإضاءة</button>
 
     <div class="master-container gold-theme" id="container1">
-        <div class="top-bar">
-            <div class="title">📜 الملف الذهبي: كتاب التاريخ </div>
-            <div class="controls">
-                <button
-                    onclick="startPreview(1, 'https://drive.google.com/file/d/1lZeIrH4lxCwo3YP543egBx75hDLK0sDf/preview')"
-                    class="btn btn-preview" id="previewBtn1">👁️ معاينة</button>
-                <button onclick="closePreview(1)" class="btn btn-close" id="closeBtn1">✖ إغلاق</button>
-                <a href="https://drive.google.com/file/d/1lZeIrH4lxCwo3YP543egBx75hDLK0sDf/view?usp=sharing"
-                    target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
-            </div>
+    <div class="top-bar">
+        <div class="title">📜 كتاب التاريخ اولى ثانوى الترم التانى :2026: الملف الذهبي: كتاب التاريخ </div>
+        <div class="controls">
+            
+            <button 
+                onclick="startPreview(1, 'https://drive.google.com/file/d/1AcSXeEkN5NI-nayAaJjX2AV1H4vBqqab/preview')" 
+                class="btn btn-preview" id="previewBtn1">👁️ معاينة</button>
+            
+            <button onclick="closePreview(1)" class="btn btn-close" id="closeBtn1">✖ إغلاق</button>
+            
+            <a href="https://drive.google.com/file/d/1AcSXeEkN5NI-nayAaJjX2AV1H4vBqqab/view?usp=sharing" 
+                target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
         </div>
+    </div>
+    <div class="preview-section" id="previewSection1">
+        <div class="timer-overlay" id="timerOverlay1">
+            <p>جاري استحضار التاريخ...</p>
+            <div class="countdown" id="countDisplay1">3</div>
+        </div>
+        <iframe id="pdfFrame1" src=""></iframe>
+    </div>
+</div>
         <div class="preview-section" id="previewSection1">
             <div class="timer-overlay" id="timerOverlay1">
                 <p>جاري استحضار التاريخ...</p>
@@ -302,25 +358,27 @@ body {
     </div>
 
     <div class="master-container blue-theme" id="container2">
-        <div class="top-bar">
-            <div class="title">💎 الملف الجديد: المستعرض الأزرق </div>
-            <div class="controls">
-                <button
-                    onclick="startPreview(2, 'https://drive.google.com/file/d/1Kwl4uSB25Bx6HYqru4Np88tPhrpOUcHrRomBd1b6dUY/preview')"
-                    class="btn btn-preview" id="previewBtn2">👁️ معاينة</button>
-                <button onclick="closePreview(2)" class="btn btn-close" id="closeBtn2">✖ إغلاق</button>
-                <a href="https://docs.google.com/document/d/1Kwl4uSB25Bx6HYqru4Np88tPhrpOUcHrRomBd1b6dUY/edit?usp=sharing"
-                    target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
-            </div>
-        </div>
-        <div class="preview-section" id="previewSection2">
-            <div class="timer-overlay" id="timerOverlay2">
-                <p>جاري تجهيز الملف الأزرق...</p>
-                <div class="countdown" id="countDisplay2">3</div>
-            </div>
-            <iframe id="pdfFrame2" src=""></iframe>
+    <div class="top-bar">
+        <div class="title">💎كتاب العربى اولى ثانوى ترم التانى :2026: الملف الجديد: المستعرض الأزرق </div>
+        <div class="controls"> 
+            <button
+                onclick="startPreview(2, 'https://drive.google.com/file/d/1Xe5YLWo_Ik4161XE0J1ZcTrEDE1BSbBu/preview')"
+                class="btn btn-preview" id="previewBtn2">👁️ معاينة</button>
+            
+            <button onclick="closePreview(2)" class="btn btn-close" id="closeBtn2">✖ إغلاق</button>
+            
+            <a href="https://drive.google.com/file/d/1Xe5YLWo_Ik4161XE0J1ZcTrEDE1BSbBu/view?usp=sharing"
+                target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
         </div>
     </div>
+    <div class="preview-section" id="previewSection2">
+        <div class="timer-overlay" id="timerOverlay2">
+            <p>جاري تجهيز الملف الأزرق...</p>
+            <div class="countdown" id="countDisplay2">3</div>
+        </div>
+        <iframe id="pdfFrame2" src=""></iframe>
+    </div>
+</div>
 <div class="master-container red-theme" id="container3" style="margin-top: 40px;">
         <style>
             /* تعريف ألوان الثيم الأحمر داخل الحاوية لضمان الاستقلالية */
@@ -335,13 +393,13 @@ body {
         </style>
 
      <div class="top-bar">
-    <div class="title">🔥 الملف الثالث: المستعرض الأحمر</div>
+    <div class="title">🔥  كتاب الرياضيات اولى ثانوى ترم تانى :2026 :الملف الثالث: المستعرض الأحمر</div>
     <div class="controls">
-        <button onclick="startPreview(3, 'https://drive.google.com/file/d/1ZZuENtlrxFiNn4ZPClrKsyqy2HwBsoJM/preview')" class="btn btn-preview" id="previewBtn3">👁️ معاينة</button>
+        <button onclick="startPreview(3, 'https://drive.google.com/file/d/1KwAwuIw4wH263o0iQpNiXyfEAxzx5un1/preview')" class="btn btn-preview" id="previewBtn3">👁️ معاينة</button>
         
         <button onclick="closePreview(3)" class="btn btn-close" id="closeBtn3">✖ إغلاق</button>
         
-        <a href="https://drive.google.com/file/d/1ZZuENtlrxFiNn4ZPClrKsyqy2HwBsoJM/view?usp=sharing" target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
+        <a href="https://drive.google.com/file/d/1KwAwuIw4wH263o0iQpNiXyfEAxzx5un1/preview" target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
     </div>
 </div>
 
@@ -370,11 +428,11 @@ body {
         </style>
 
         <div class="top-bar">
-            <div class="title">🌿 الملف الرابع: المستعرض الأخضر</div>
+            <div class="title">🌿 :كتاب العلوم اولى ثانوى الترم التانى :2026الملف الرابع: المستعرض الأخضر</div>
             <div class="controls">
-                <button onclick="startPreview(4, 'https://drive.google.com/file/d/رابط_ملفك_الأخضر/preview')" class="btn btn-preview" id="previewBtn4">👁️ معاينة</button>
+                <button onclick="startPreview(4, 'https://drive.google.com/file/d/19Jsj8F7b6RqUZmZSvhhQ79daXpPR6NsW/preview')" class="btn btn-preview" id="previewBtn4">👁️ معاينة</button>
                 <button onclick="closePreview(4)" class="btn btn-close" id="closeBtn4">✖ إغلاق</button>
-                <a href="رابط_التحميل_هنا" target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
+                <a href="https://drive.google.com/file/d/19Jsj8F7b6RqUZmZSvhhQ79daXpPR6NsW/view?usp=sharing" target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
             </div>
         </div>
 
@@ -403,11 +461,11 @@ body {
         </style>
 
         <div class="top-bar">
-            <div class="title">🔮 الملف الخامس: المستعرض البنفسجي</div>
+            <div class="title">🔮 :كتاب  الفلسفة اولى ثانوى الترم التانى :2026: الملف الخامس: المستعرض البنفسجي</div>
             <div class="controls">
-                <button onclick="startPreview(5, 'https://drive.google.com/file/d/رابط_ملفك_البنفسجي/preview')" class="btn btn-preview" id="previewBtn5">👁️ معاينة</button>
+                <button onclick="startPreview(5, 'https://drive.google.com/file/d/1L81kbqenx9wEZU2b-NMDOQy4XfRO_C93/preview')" class="btn btn-preview" id="previewBtn5">👁️ معاينة</button>
                 <button onclick="closePreview(5)" class="btn btn-close" id="closeBtn5">✖ إغلاق</button>
-                <a href="رابط_التحميل_هنا" target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
+                <a href="https://drive.google.com/file/d/1L81kbqenx9wEZU2b-NMDOQy4XfRO_C93/view?usp=sharing" target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
             </div>
         </div>
 
@@ -431,11 +489,11 @@ body {
     </style>
 
     <div class="top-bar">
-        <div class="title">🌸 الملف السادس: المستعرض الوردي</div>
+        <div class="title">🌸 كتاب الانجليزى معاصر اولى ثانوى ترم تانى :2026 :الملف السادس: المستعرض الوردي</div>
         <div class="controls">
-            <button onclick="startPreview(6, 'رابط_الملف_هنا/preview')" class="btn btn-preview" id="previewBtn6">👁️ معاينة</button>
+            <button onclick="startPreview(6, 'https://drive.google.com/file/d/1LRg8l5Rl8LA5wF1dhSOCtaufDpoG2Yqh/preview')" class="btn btn-preview" id="previewBtn6">👁️ معاينة</button>
             <button onclick="closePreview(6)" class="btn btn-close" id="closeBtn6">✖ إغلاق</button>
-            <a href="رابط_التحميل_هنا" target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
+            <a href="https://drive.google.com/file/d/1LRg8l5Rl8LA5wF1dhSOCtaufDpoG2Yqh/view?usp=sharing" target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
         </div>
     </div>
 
@@ -461,11 +519,11 @@ body {
     </style>
 
     <div class="top-bar">
-        <div class="title">💎 الملف السابع: المستعرض السماوي</div>
+        <div class="title">💎 كتاب الفرنساوى اولى ثانوى الترم التانى : 2026: الملف السابع: المستعرض السماوي</div>
         <div class="controls">
-            <button onclick="startPreview(7, 'رابط_الملف_هنا/preview')" class="btn btn-preview" id="previewBtn7">👁️ معاينة</button>
+            <button onclick="startPreview(7, 'https://drive.google.com/file/d/11N4NEoL8pRcH_C3lxnhkS49ExczRfq2Z/preview')" class="btn btn-preview" id="previewBtn7">👁️ معاينة</button>
             <button onclick="closePreview(7)" class="btn btn-close" id="closeBtn7">✖ إغلاق</button>
-            <a href="رابط_التحميل_هنا" target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
+            <a href="https://drive.google.com/file/d/11N4NEoL8pRcH_C3lxnhkS49ExczRfq2Z/view?usp=sharing" target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
         </div>
     </div>
 
@@ -491,11 +549,11 @@ body {
     </style>
 
     <div class="top-bar">
-        <div class="title">🔥 الملف الثامن: المستعرض البرتقالي</div>
+        <div class="title">🔥كتاب العربى اضواء اولى ثانوى ترم تانى :2026: الملف الثامن: المستعرض البرتقالي</div>
         <div class="controls">
-            <button onclick="startPreview(8, 'رابط_الملف_هنا/preview')" class="btn btn-preview" id="previewBtn8">👁️ معاينة</button>
+            <button onclick="startPreview(8, 'https://drive.google.com/file/d/1MheqZX-7mmG9dy_GdjCZh6UqSGzEYMdw/preview')" class="btn btn-preview" id="previewBtn8">👁️ معاينة</button>
             <button onclick="closePreview(8)" class="btn btn-close" id="closeBtn8">✖ إغلاق</button>
-            <a href="رابط_التحميل_هنا" target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
+            <a href="https://drive.google.com/file/d/1MheqZX-7mmG9dy_GdjCZh6UqSGzEYMdw/view?usp=sharing" target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
         </div>
     </div>
 
@@ -506,7 +564,170 @@ body {
         <iframe id="pdfFrame8" style="width: 100%; height: 500px; border: none;"></iframe>
     </div>
 </div>
+<div class="master-container emerald-theme" id="container9" style="margin-top: 40px;">
+    <style>
+        /* تعريف ألوان الثيم الزمردي لضمان الاستقلالية */
+        .emerald-theme {
+            --emerald-neon: #2ecc71; /* أخضر زمردي مشع */
+            --emerald-dark: #1b5e20; /* أخضر غامق */
+            border: 2px solid var(--emerald-neon) !important;
+            box-shadow: 0 0 15px var(--emerald-neon), 0 0 30px var(--emerald-dark) !important;
+            border-radius: 15px;
+            overflow: hidden;
+            background: rgba(10, 20, 10, 0.9);
+        }
+
+        .emerald-theme .title { 
+            color: var(--emerald-neon) !important; 
+            text-shadow: 0 0 5px var(--emerald-neon); 
+            font-weight: bold;
+        }
+
+        .emerald-theme .btn-preview { 
+            background: linear-gradient(to right, var(--emerald-dark), var(--emerald-neon)) !important; 
+            color: #fff !important;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .emerald-theme .btn-preview:hover {
+            box-shadow: 0 0 10px var(--emerald-neon);
+            filter: brightness(1.1);
+        }
+    </style>
+
+    
+    <style>
+        /* تعريف ألوان الثيم الأزرق الملكي لضمان الاستقلالية */
+        .royal-blue-theme {
+            --royal-neon: #0070ff; /* أزرق ملكي مشع */
+            --royal-dark: #003366; /* أزرق داكن */
+            border: 2px solid var(--royal-neon) !important;
+            box-shadow: 0 0 15px var(--royal-neon), 0 0 30px var(--royal-dark) !important;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .royal-blue-theme .title { 
+            color: var(--royal-neon) !important; 
+            text-shadow: 0 0 5px var(--royal-neon); 
+        }
+
+        .royal-blue-theme .btn-preview { 
+            background: linear-gradient(to right, var(--royal-dark), var(--royal-neon)) !important; 
+            color: #fff !important;
+        }
+    </style>
+
+    <div class="top-bar">
+        <div class="title">💠كتاب الدين (اسلامى) اولى ثانوى ترم تانى :2026: الملف التاسع: المستعرض الأزرق الملكي</div>
+        <div class="controls">
+            <button onclick="startPreview(10, 'https://drive.google.com/file/d/1lD2zx87OdzxwYVisQX1ytqmdeljKjGjT/preview')" class="btn btn-preview" id="previewBtn10">👁️ معاينة</button>
+            <button onclick="closePreview(10)" class="btn btn-close" id="closeBtn10">✖ إغلاق</button>
+            <a href="https://drive.google.com/file/d/1lD2zx87OdzxwYVisQX1ytqmdeljKjGjT/view?usp=sharing" target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
+        </div>
+    </div>
+
+    <div class="preview-section" id="previewSection10">
+        <div class="timer-overlay" id="timerOverlay10" style="color: #0070ff;">
+            <p>جاري تجهيز الملف الملكي...</p>
+            <div class="countdown" id="countDisplay10">3</div>
+        </div>
+        <iframe id="pdfFrame10" src="" style="width: 100%; height: 550px; border: none;"></iframe>
+    </div>
+</div>
+<div class="master-container lemon-theme" id="container11" style="margin-top: 40px;">
+    <style>
+        /* تعريف ألوان الثيم الأصفر الليموني لضمان الاستقلالية */
+        .lemon-theme {
+            --lemon-neon: #ccff00; /* أصفر ليموني مشع */
+            --lemon-dark: #82a000; /* أخضر زيتوني داكن للتدرج */
+            border: 2px solid var(--lemon-neon) !important;
+            box-shadow: 0 0 15px var(--lemon-neon), 0 0 30px var(--lemon-dark) !important;
+            border-radius: 10px;
+        }
+
+        .lemon-theme .title { 
+            color: var(--lemon-neon) !important; 
+            text-shadow: 0 0 5px var(--lemon-neon); 
+        }
+
+        .lemon-theme .btn-preview { 
+            background: linear-gradient(to right, var(--lemon-dark), var(--lemon-neon)) !important; 
+            color: #000 !important; /* الأسود أوضح على الأصفر */
+            font-weight: bold;
+        }
+    </style>
+
+    <div class="top-bar">
+        <div class="title">🍋 👨‍🎓 السيرة الذاتية: المطور مصطفى محمد: 2026: الملف العاشر: المستعرض الأصفر الليموني</div>
+        <div class="controls">
+            <button onclick="startPreview(11, 'https://drive.google.com/file/d/1z5eXVjd3Y7E1Y8ojkY5M7QiqVr7-A2-_/preview')" class="btn btn-preview" id="previewBtn11">👁️ معاينة</button>
+            <button onclick="closePreview(11)" class="btn btn-close" id="closeBtn11">✖ إغلاق</button>
+            <a href="https://drive.google.com/file/d/1z5eXVjd3Y7E1Y8ojkY5M7QiqVr7-A2-_/view?usp=sharing" target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
+        </div>
+    </div>
+
+    <div class="preview-section" id="previewSection11">
+        <div class="timer-overlay" id="timerOverlay11" style="color: #ccff00;">
+            <p>جاري تجهيز الملف الليموني...</p>
+            <div class="countdown" id="countDisplay11">3</div>
+        </div>
+        <iframe id="pdfFrame11" src="" style="width: 100%; height: 550px; border: none;"></iframe>
+    </div>
+</div>
+
     <script>
+        function startPreview(id, driveLink) {
+    const container = document.getElementById('container' + id); // الحاوية الكلية
+    const overlay = document.getElementById('timerOverlay' + id);
+    const previewSection = document.getElementById('previewSection' + id);
+    const countDisplay = document.getElementById('countDisplay' + id);
+    const pdfFrame = document.getElementById('pdfFrame' + id);
+    const closeBtn = document.getElementById('closeBtn' + id);
+    const previewBtn = document.getElementById('previewBtn' + id);
+
+    // تفعيل وضع ملء الشاشة للحاوية
+    if (container.requestFullscreen) {
+        container.requestFullscreen();
+    } else if (container.webkitRequestFullscreen) { /* Safari */
+        container.webkitRequestFullscreen();
+    } else if (container.msRequestFullscreen) { /* IE11 */
+        container.msRequestFullscreen();
+    }
+
+    previewSection.style.display = 'block';
+    overlay.style.display = 'flex';
+    previewBtn.style.display = 'none';
+    closeBtn.style.display = 'flex';
+
+    let timeLeft = 3;
+    countDisplay.innerText = timeLeft;
+
+    const timer = setInterval(() => {
+        timeLeft--;
+        countDisplay.innerText = timeLeft;
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            overlay.style.display = 'none';
+            pdfFrame.src = driveLink;
+        }
+    }, 1000);
+}
+function closePreview(id) {
+    document.getElementById('previewSection' + id).style.display = 'none';
+    document.getElementById('closeBtn' + id).style.display = 'none';
+    document.getElementById('previewBtn' + id).style.display = 'flex';
+    document.getElementById('pdfFrame' + id).src = "";
+
+    // الخروج من وضع ملء الشاشة إذا كان مفعلاً
+    if (document.fullscreenElement) {
+        document.exitFullscreen();
+    }
+}
         let currentMode = 0;
 
         function toggleTheme() {
@@ -550,6 +771,7 @@ body {
             document.getElementById('previewBtn' + id).style.display = 'flex';
             document.getElementById('pdfFrame' + id).src = "";
         }
+        
     </script>
 
 </body>
