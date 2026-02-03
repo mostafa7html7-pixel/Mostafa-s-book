@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مستعرض الملفات الملكي</title>
+    <style>
+        :root {
+            --gold-neon: #ffdf00;
+            --gold-dark: #d4af37;
+            --blue-neon: #00d4ff;
+            --blue-dark: #005f73;
+            --bg-color: #0a0a0a;
+            --container-bg: #1a1a1a;
+            --text-color: #ffdf00;
+            --neon-glow: 0 0 15px #ffdf00, 0 0 30px #d4af37;
+        }
+
+        /* أوضاع الإضاءة العامة للموقع */
+        body.light-mode {
+            --bg-color: #f4f4f4;
+            --container-bg: #ffffff;
+        }
+
+        body.dim-mode {
+            --bg-color: #2c3e50;
+            --container-bg: #34495e;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            padding: 40px 0;
+            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            transition: 0.5s;
+        }
+
+        .master-container {
+            width: 95%;
+            max-width: 900px;
+            background: var(--container-bg);
+            background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-size: 20px 20px;
+            border-radius: 20px;
+            padding: 15px;
+            position: relative;
+            transition: 0.5s;
+        }
+
+        /* ستايل الحاوية الذهبية */
+        .gold-theme {
+            border: 2px solid var(--gold-dark);
+            box-shadow: 0 0 15px var(--gold-neon), 0 0 30px var(--gold-dark);
+        }
+
+        .gold-theme .title {
+            color: var(--gold-neon);
+        }
+
+        /* ستايل الحاوية الزرقاء */
+        .blue-theme {
+            border: 2px solid var(--blue-neon);
+            box-shadow: 0 0 15px var(--blue-neon), 0 0 30px var(--blue-dark);
+        }
+
+        .blue-theme .title {
+            color: var(--blue-neon);
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 15px;
+        }
+
+        .title {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+        }
+
+        /* أزرار الحاوية الذهبية */
+        .gold-theme .btn-preview {
+            background: linear-gradient(to right, #d4af37, #ffdf00);
+            color: #000;
+        }
+
+        /* أزرار الحاوية الزرقاء */
+        .blue-theme .btn-preview {
+            background: linear-gradient(to right, #005f73, #00d4ff);
+            color: #fff;
+        }
+
+        .btn-close {
+            background: #e74c3c;
+            color: white;
+            display: none;
+        }
+
+        .btn-theme-toggle {
+            background: #333;
+            color: #fff;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 100;
+        }
+
+        .preview-section {
+            display: none;
+            position: relative;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .timer-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .gold-theme .timer-overlay {
+            color: var(--gold-neon);
+        }
+
+        .blue-theme .timer-overlay {
+            color: var(--blue-neon);
+        }
+
+        .countdown {
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button onclick="toggleTheme()" class="btn btn-theme-toggle">🌓 تغيير وضع الإضاءة</button>
+
+    <div class="master-container gold-theme" id="container1">
+        <div class="top-bar">
+            <div class="title">📜 الملف الذهبي: كتاب التاريخ </div>
+            <div class="controls">
+                <button
+                    onclick="startPreview(1, 'https://drive.google.com/file/d/1lZeIrH4lxCwo3YP543egBx75hDLK0sDf/preview')"
+                    class="btn btn-preview" id="previewBtn1">👁️ معاينة</button>
+                <button onclick="closePreview(1)" class="btn btn-close" id="closeBtn1">✖ إغلاق</button>
+                <a href="https://drive.google.com/file/d/1lZeIrH4lxCwo3YP543egBx75hDLK0sDf/view?usp=sharing"
+                    target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
+            </div>
+        </div>
+        <div class="preview-section" id="previewSection1">
+            <div class="timer-overlay" id="timerOverlay1">
+                <p>جاري استحضار التاريخ...</p>
+                <div class="countdown" id="countDisplay1">3</div>
+            </div>
+            <iframe id="pdfFrame1" src=""></iframe>
+        </div>
+    </div>
+
+    <div class="master-container blue-theme" id="container2">
+        <div class="top-bar">
+            <div class="title">💎 الملف الجديد: المستعرض الأزرق </div>
+            <div class="controls">
+                <button
+                    onclick="startPreview(2, 'https://drive.google.com/file/d/1Kwl4uSB25Bx6HYqru4Np88tPhrpOUcHrRomBd1b6dUY/preview')"
+                    class="btn btn-preview" id="previewBtn2">👁️ معاينة</button>
+                <button onclick="closePreview(2)" class="btn btn-close" id="closeBtn2">✖ إغلاق</button>
+                <a href="https://docs.google.com/document/d/1Kwl4uSB25Bx6HYqru4Np88tPhrpOUcHrRomBd1b6dUY/edit?usp=sharing"
+                    target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
+            </div>
+        </div>
+        <div class="preview-section" id="previewSection2">
+            <div class="timer-overlay" id="timerOverlay2">
+                <p>جاري تجهيز الملف الأزرق...</p>
+                <div class="countdown" id="countDisplay2">3</div>
+            </div>
+            <iframe id="pdfFrame2" src=""></iframe>
+        </div>
+    </div>
+<div class="master-container red-theme" id="container3" style="margin-top: 40px;">
+        <style>
+            /* تعريف ألوان الثيم الأحمر داخل الحاوية لضمان الاستقلالية */
+            .red-theme {
+                --red-neon: #ff0000;
+                --red-dark: #8b0000;
+                border: 2px solid var(--red-neon) !important;
+                box-shadow: 0 0 15px var(--red-neon), 0 0 30px var(--red-dark) !important;
+            }
+            .red-theme .title { color: var(--red-neon) !important; text-shadow: 0 0 5px var(--red-neon); }
+            .red-theme .btn-preview { background: linear-gradient(to right, var(--red-dark), var(--red-neon)) !important; color: #fff !important; }
+        </style>
+
+     <div class="top-bar">
+    <div class="title">🔥 الملف الثالث: المستعرض الأحمر</div>
+    <div class="controls">
+        <button onclick="startPreview(3, 'https://drive.google.com/file/d/1ZZuENtlrxFiNn4ZPClrKsyqy2HwBsoJM/preview')" class="btn btn-preview" id="previewBtn3">👁️ معاينة</button>
+        
+        <button onclick="closePreview(3)" class="btn btn-close" id="closeBtn3">✖ إغلاق</button>
+        
+        <a href="https://drive.google.com/file/d/1ZZuENtlrxFiNn4ZPClrKsyqy2HwBsoJM/view?usp=sharing" target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
+    </div>
+</div>
+
+        <div class="preview-section" id="previewSection3">
+            <div class="timer-overlay" id="timerOverlay3" style="color: #ff0000;">
+                <p>جاري تجهيز الملف الأحمر...</p>
+                <div class="countdown" id="countDisplay3">3</div>
+            </div>
+            <iframe id="pdfFrame3" src="" style="width: 100%; height: 500px; border: none;"></iframe>
+        </div>
+    </div>
+    <script>
+        let currentMode = 0;
+
+        function toggleTheme() {
+            const body = document.body;
+            currentMode = (currentMode + 1) % 3;
+            body.classList.remove('light-mode', 'dim-mode');
+            if (currentMode === 1) body.classList.add('light-mode');
+            else if (currentMode === 2) body.classList.add('dim-mode');
+        }
+
+        function startPreview(id, driveLink) {
+            const overlay = document.getElementById('timerOverlay' + id);
+            const previewSection = document.getElementById('previewSection' + id);
+            const countDisplay = document.getElementById('countDisplay' + id);
+            const pdfFrame = document.getElementById('pdfFrame' + id);
+            const closeBtn = document.getElementById('closeBtn' + id);
+            const previewBtn = document.getElementById('previewBtn' + id);
+
+            previewSection.style.display = 'block';
+            overlay.style.display = 'flex';
+            previewBtn.style.display = 'none';
+            closeBtn.style.display = 'flex';
+
+            let timeLeft = 3;
+            countDisplay.innerText = timeLeft;
+
+            const timer = setInterval(() => {
+                timeLeft--;
+                countDisplay.innerText = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    overlay.style.display = 'none';
+                    pdfFrame.src = driveLink;
+                }
+            }, 1000);
+        }
+
+        function closePreview(id) {
+            document.getElementById('previewSection' + id).style.display = 'none';
+            document.getElementById('closeBtn' + id).style.display = 'none';
+            document.getElementById('previewBtn' + id).style.display = 'flex';
+            document.getElementById('pdfFrame' + id).src = "";
+        }
+    </script>
+
+</body>
+
+</html>
