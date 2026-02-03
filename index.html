@@ -6,6 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مستعرض الملفات الملكي</title>
     <style>
+        /* يجعل الحاويات مرنة لتناسب عرض أي شاشة */
+.master-container {
+    width: 95% !important; /* يأخذ 95% من عرض الشاشة في الموبايل */
+    max-width: 900px !important; /* لا يزيد عن 900px في الشاشات الكبيرة */
+    margin: 20px auto !important; /* يوسط الحاوية تلقائياً */
+}
+
+/* يجعل شريط الأزرار مرناً (ينزل لسطر جديد في الموبايل بدل أن يختفي) */
+.top-bar {
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+}
+
+/* ضبط ارتفاع المعاينة ليكون مناسباً للموبايل */
+iframe {
+    height: 70vh !important; /* يأخذ 70% من طول شاشة الموبايل */
+    width: 100% !important;
+}
         :root {
             --gold-neon: #ffdf00;
             --gold-dark: #d4af37;
@@ -19,8 +37,8 @@
 
         /* أوضاع الإضاءة العامة للموقع */
         body.light-mode {
-            --bg-color: #f4f4f4;
-            --container-bg: #ffffff;
+            --bg-color: #110a04ec;
+            --container-bg: #eba08970;
         }
 
         body.dim-mode {
@@ -30,8 +48,7 @@
 
         body {
             background-color: var(--bg-color);
-            margin: 0;
-            display: flex;
+             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 40px;
@@ -39,6 +56,7 @@
             min-height: 100vh;
             font-family: 'Segoe UI', sans-serif;
             transition: 0.5s;
+            
         }
 
         .master-container {
@@ -175,11 +193,91 @@
             height: 600px;
             border: none;
         }
+        /* تنسيق الـ Header العلوي */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: rgba(26, 26, 26, 0.8); /* خلفية زجاجية */
+    backdrop-filter: blur(10px); /* تأثير الضباب */
+    border-bottom: 2px solid var(--gold-dark);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 2000;
+    box-sizing: border-box;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+.header-logo {
+    color: var(--gold-neon);
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-shadow: 0 0 10px var(--gold-dark);
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* تعديل أزرار الـ Header لتكون أصغر وأرشق */
+.header-btn {
+    padding: 8px 15px;
+    font-size: 13px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.btn-contact {
+    background: linear-gradient(45deg, #25d366, #128c7e); /* لون واتساب كمثال */
+    color: white;
+}
+
+.btn-light {
+    background: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+/* تأكد من إضافة تباعد لمحتوى الصفحة لكي لا يختفي تحت الـ Header */
+body {
+    padding-top: 80px !important;
+}
+
+@media (max-width: 480px) {
+    .header-logo { font-size: 0.9rem; }
+    .header-btn { padding: 6px 10px; font-size: 11px; }
+}
     </style>
 </head>
 
 <body>
-
+<header class="main-header">
+    <div class="header-logo">
+        👑 المكتبة الملكية
+    </div>
+    
+    <div class="header-actions">
+        <a href="https://wa.me/رقم_هاتفك" target="_blank" class="btn-contact header-btn">
+            📞 تواصل معنا
+        </a>
+        
+        <button onclick="toggleTheme()" class="btn-light header-btn">
+            🌓 الإضاءة
+        </button>
+    </div>
+</header>
     <button onclick="toggleTheme()" class="btn btn-theme-toggle">🌓 تغيير وضع الإضاءة</button>
 
     <div class="master-container gold-theme" id="container1">
@@ -255,6 +353,159 @@
             <iframe id="pdfFrame3" src="" style="width: 100%; height: 500px; border: none;"></iframe>
         </div>
     </div>
+    <div class="master-container green-theme" id="container4" style="margin-top: 40px;">
+        <style>
+            /* تعريف ألوان الثيم الأخضر لضمان الاستقلالية */
+            .green-theme {
+                --green-neon: #00ff00;
+                --green-dark: #006400;
+                border: 2px solid var(--green-neon) !important;
+                box-shadow: 0 0 15px var(--green-neon), 0 0 30px var(--green-dark) !important;
+            }
+            .green-theme .title { color: var(--green-neon) !important; text-shadow: 0 0 5px var(--green-neon); }
+            .green-theme .btn-preview { 
+                background: linear-gradient(to right, var(--green-dark), var(--green-neon)) !important; 
+                color: #000 !important; /* اللون الأسود يظهر بوضوح أكبر على الأخضر الفاقع */
+            }
+        </style>
+
+        <div class="top-bar">
+            <div class="title">🌿 الملف الرابع: المستعرض الأخضر</div>
+            <div class="controls">
+                <button onclick="startPreview(4, 'https://drive.google.com/file/d/رابط_ملفك_الأخضر/preview')" class="btn btn-preview" id="previewBtn4">👁️ معاينة</button>
+                <button onclick="closePreview(4)" class="btn btn-close" id="closeBtn4">✖ إغلاق</button>
+                <a href="رابط_التحميل_هنا" target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
+            </div>
+        </div>
+
+        <div class="preview-section" id="previewSection4">
+            <div class="timer-overlay" id="timerOverlay4" style="color: #00ff00;">
+                <p>جاري تجهيز الملف الأخضر...</p>
+                <div class="countdown" id="countDisplay4">3</div>
+            </div>
+            <iframe id="pdfFrame4" src="" style="width: 100%; height: 550px; border: none;"></iframe>
+        </div>
+    </div>
+    <div class="master-container purple-theme" id="container5" style="margin-top: 40px;">
+        <style>
+            /* تعريف ألوان الثيم البنفسجي لضمان الاستقلالية */
+            .purple-theme {
+                --purple-neon: #bc13fe;
+                --purple-dark: #4b0082;
+                border: 2px solid var(--purple-neon) !important;
+                box-shadow: 0 0 15px var(--purple-neon), 0 0 30px var(--purple-dark) !important;
+            }
+            .purple-theme .title { color: var(--purple-neon) !important; text-shadow: 0 0 5px var(--purple-neon); }
+            .purple-theme .btn-preview { 
+                background: linear-gradient(to right, var(--purple-dark), var(--purple-neon)) !important; 
+                color: #fff !important;
+            }
+        </style>
+
+        <div class="top-bar">
+            <div class="title">🔮 الملف الخامس: المستعرض البنفسجي</div>
+            <div class="controls">
+                <button onclick="startPreview(5, 'https://drive.google.com/file/d/رابط_ملفك_البنفسجي/preview')" class="btn btn-preview" id="previewBtn5">👁️ معاينة</button>
+                <button onclick="closePreview(5)" class="btn btn-close" id="closeBtn5">✖ إغلاق</button>
+                <a href="رابط_التحميل_هنا" target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
+            </div>
+        </div>
+
+        <div class="preview-section" id="previewSection5">
+            <div class="timer-overlay" id="timerOverlay5" style="color: #bc13fe;">
+                <p>جاري تجهيز الملف البنفسجي...</p>
+                <div class="countdown" id="countDisplay5">3</div>
+            </div>
+            <iframe id="pdfFrame5" src="" style="width: 100%; height: 550px; border: none;"></iframe>
+        </div>
+    </div>
+    <div class="master-container pink-theme" id="container6" style="margin-top: 20px;">
+    <style>
+        /* إعدادات اللون الوردي */
+        .pink-theme { 
+            border: 2px solid #ff69b4 !important; 
+            box-shadow: 0 0 15px #ff69b4 !important; 
+        }
+        .pink-theme .title { color: #ff69b4 !important; text-shadow: 0 0 5px #ff69b4; }
+        .pink-theme .btn-preview { background: linear-gradient(to right, #ff1493, #ff69b4) !important; color: #fff !important; }
+    </style>
+
+    <div class="top-bar">
+        <div class="title">🌸 الملف السادس: المستعرض الوردي</div>
+        <div class="controls">
+            <button onclick="startPreview(6, 'رابط_الملف_هنا/preview')" class="btn btn-preview" id="previewBtn6">👁️ معاينة</button>
+            <button onclick="closePreview(6)" class="btn btn-close" id="closeBtn6">✖ إغلاق</button>
+            <a href="رابط_التحميل_هنا" target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
+        </div>
+    </div>
+
+    <div class="preview-section" id="previewSection6">
+        <div class="timer-overlay" id="timerOverlay6" style="color: #ff69b4; display: none; justify-content: center; align-items: center; position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 5;">
+            <div class="countdown" id="countDisplay6">3</div>
+        </div>
+        <iframe id="pdfFrame6" style="width: 100%; height: 500px; border: none;"></iframe>
+    </div>
+</div>
+<div class="master-container cyan-theme" id="container7" style="margin-top: 20px;">
+    <style>
+        /* إعدادات اللون السماوي */
+        .cyan-theme { 
+            border: 2px solid #00ffff !important; 
+            box-shadow: 0 0 15px #00ffff !important; 
+        }
+        .cyan-theme .title { color: #00ffff !important; text-shadow: 0 0 5px #00ffff; }
+        .cyan-theme .btn-preview { 
+            background: linear-gradient(to right, #008b8b, #00ffff) !important; 
+            color: #000 !important; /* الأسود أوضح على السماوي الفاقع */
+        }
+    </style>
+
+    <div class="top-bar">
+        <div class="title">💎 الملف السابع: المستعرض السماوي</div>
+        <div class="controls">
+            <button onclick="startPreview(7, 'رابط_الملف_هنا/preview')" class="btn btn-preview" id="previewBtn7">👁️ معاينة</button>
+            <button onclick="closePreview(7)" class="btn btn-close" id="closeBtn7">✖ إغلاق</button>
+            <a href="رابط_التحميل_هنا" target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
+        </div>
+    </div>
+
+    <div class="preview-section" id="previewSection7">
+        <div class="timer-overlay" id="timerOverlay7" style="color: #00ffff; display: none; justify-content: center; align-items: center; position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 5;">
+            <div class="countdown" id="countDisplay7">3</div>
+        </div>
+        <iframe id="pdfFrame7" style="width: 100%; height: 500px; border: none;"></iframe>
+    </div>
+</div>
+<div class="master-container orange-theme" id="container8" style="margin-top: 20px;">
+    <style>
+        /* إعدادات اللون البرتقالي */
+        .orange-theme { 
+            border: 2px solid #ff8c00 !important; 
+            box-shadow: 0 0 15px #ff8c00 !important; 
+        }
+        .orange-theme .title { color: #ff8c00 !important; text-shadow: 0 0 5px #ff8c00; }
+        .orange-theme .btn-preview { 
+            background: linear-gradient(to right, #e65100, #ff8c00) !important; 
+            color: #fff !important; 
+        }
+    </style>
+
+    <div class="top-bar">
+        <div class="title">🔥 الملف الثامن: المستعرض البرتقالي</div>
+        <div class="controls">
+            <button onclick="startPreview(8, 'رابط_الملف_هنا/preview')" class="btn btn-preview" id="previewBtn8">👁️ معاينة</button>
+            <button onclick="closePreview(8)" class="btn btn-close" id="closeBtn8">✖ إغلاق</button>
+            <a href="رابط_التحميل_هنا" target="_blank" class="btn" style="background: #333; color: #fff;">📥 تحميل</a>
+        </div>
+    </div>
+
+    <div class="preview-section" id="previewSection8">
+        <div class="timer-overlay" id="timerOverlay8" style="color: #ff8c00; display: none; justify-content: center; align-items: center; position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 5;">
+            <div class="countdown" id="countDisplay8">3</div>
+        </div>
+        <iframe id="pdfFrame8" style="width: 100%; height: 500px; border: none;"></iframe>
+    </div>
+</div>
     <script>
         let currentMode = 0;
 
